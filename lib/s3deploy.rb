@@ -1,6 +1,5 @@
 require "s3deploy/version"
 require "AWS/S3"
-require "YAML"
 
 class S3deploy
 

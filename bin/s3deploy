@@ -2,6 +2,8 @@
 
 require "s3deploy"
 
+puts "This is a pre-release but expect something more within a week or so :)"
+
 if ARGV.empty?
   s3deploy = S3deploy.new
   s3deploy.deploy
