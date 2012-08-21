@@ -1,0 +1,9 @@
+---
+aws_key:
+aws_secret:
+aws_bucket:
+aws_region:
+extras:
+  - delete_old_files
+  - replace_with_gzip
+  - ssl

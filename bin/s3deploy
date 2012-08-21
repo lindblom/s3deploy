@@ -2,4 +2,11 @@
 
 require "s3deploy"
 
-puts "test"
+if ARGV.empty?
+  s3deploy = S3deploy.new
+  s3deploy.deploy
+elsif ARGV.first == "init"
+  S3deploy.install_config(ARGV.include? "--default")
+else
+  puts "Nope, no command."
+end

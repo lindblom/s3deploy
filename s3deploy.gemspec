@@ -7,9 +7,9 @@ Gem::Specification.new do |gem|
   gem.name          = "s3deploy"
   gem.version       = S3deploy::VERSION
   gem.authors       = ["Christopher Lindblom"]
-  gem.email         = ["lindblom@doless.se"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.email         = ["chris@topher.se"]
+  gem.description   = %q{Deploy static websites to Amazon S3}
+  gem.summary       = %q{Deploy static websites to Amazon S3}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
