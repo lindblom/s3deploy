@@ -2,13 +2,33 @@
 
 require "s3deploy"
 
-puts "This is a pre-release but expect something more within a week or so :)"
+begin
+  if ARGV.empty?
+    unless S3deploy.config_files?
+      puts "Create config files first with 's3deploy init' or 's3deploy init --default'."
+      exit(0)
+    end
+    s3deploy = S3deploy.new
+    s3deploy.deploy
+  elsif ARGV.first == "init"
+    S3deploy.install_config(ARGV.include? "--default")
+  elsif ARGV.first == "simulate"
+    s3deploy = S3deploy.new
+    s3deploy.deploy(true)
+  else
+    puts <<-eos
+  S3deploy usage.
 
-if ARGV.empty?
-  s3deploy = S3deploy.new
-  s3deploy.deploy
-elsif ARGV.first == "init"
-  S3deploy.install_config(ARGV.include? "--default")
-else
-  puts "Nope, no command."
+  s3deploy init (creates folder configuration)
+  s3deploy init --default (creates default configuration)
+
+  s3deploy (deploys the site to Amazon S3)
+  s3deploy simulate (simulates a deployment of the site to Amazon S3)
+  
+  Folder configurations takes precedence over default configurations.
+  I put my aws key, secret and region in default and the rest in folder.
+            eos
+  end
+rescue Exception => e
+  puts e.message
 end
