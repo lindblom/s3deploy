@@ -82,7 +82,7 @@ class S3deploy
   end
 
   def only_keep(active_files, simulate)
-    @bucket.objects(true).each do |o|
+    @bucket.each do |o|
       unless active_files.include?( o.key )
         AWS::S3::S3Object.delete(o.key, @options["aws_bucket"]) unless simulate
         puts "Deleted\t\t#{o.key}"

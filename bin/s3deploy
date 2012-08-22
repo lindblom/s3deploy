@@ -5,8 +5,7 @@ require "s3deploy"
 begin
   if ARGV.empty?
     unless S3deploy.config_files?
-      puts "Create config files first with 's3deploy init' or 's3deploy init --default'."
-      exit(0)
+      raise "Create config files first with 's3deploy init' or 's3deploy init --default'."
     end
     s3deploy = S3deploy.new
     s3deploy.deploy
