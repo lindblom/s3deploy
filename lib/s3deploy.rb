@@ -40,6 +40,11 @@ class S3deploy
     puts "Deploying to #{@options["aws_bucket"]}"
 
     files = all_files(path).map { |f| f.gsub(/^#{path}\//, "")}
+
+    if @options["skip_regex"]
+      files.delete_if { |f| f =~ Regexp.new(@options["skip_regex"]) }
+    end
+
     skip_files = []
     active_files = []
     files.each do |file|
@@ -97,6 +102,11 @@ class S3deploy
 
   def upload_file(local, remote, simulate, options = {})
     options[:access] = :public_read
+
+    if @options["cache_regex"] && remote =~ Regexp.new(@options["cache_regex"])
+      options[:"Cache-Control"] = "public, max-age=31557600" 
+    end
+
     options[:"Content-Encoding"] = "gzip" if local =~ /.+.gz$/
     AWS::S3::S3Object.store(remote, open(local), @options["aws_bucket"], options) unless simulate
     puts "Uploaded\t#{remote}"

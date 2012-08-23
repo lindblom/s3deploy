@@ -44,9 +44,7 @@ If you want to test-drive your configuration you can simulate a deploy
     $ s3deploy simulate
 
 ## Whats in the pipe-line
-1. Setting caching-headers by regex
-2. Skipping files by regex
-3. Putting it on github for others to contribute
+1. Putting it on github for others to contribute
 
 ## Contributing
 (you cant do this riktigt now, but it will be on the githubz soon)

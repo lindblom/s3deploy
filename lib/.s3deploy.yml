@@ -12,6 +12,10 @@ aws_bucket:   # the bucket you want to deploy to  *required*
               #     sa-east-1         South America (Sao Paulo)
 #path:        # the relative path to the files you want to deploy, leave it blank for current directory.
 #remote_path: # the path within the bucket to where you want to deploy, leave it blank for bucket root.
+#cache_regex: ^(images|javascripts|stylesheets)\/.+\.(png|jpg|js|css)(\.gz)?$
+              # Adds headers for browser cache for files matching regex.
+#skip_regex:  \.DS_Store$
+              # Skips files that match this regex.
 extras:
   #- delete_old_files    # deletes files that were in the bucket but not in the latest deploy
   #- replace_with_gzip   # replaces files with gz versions if they exist
