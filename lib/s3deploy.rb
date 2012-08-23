@@ -37,7 +37,7 @@ class S3deploy
     path = File.expand_path(@options["path"])
     raise "#{@options["path"]} is not a path." unless File.directory? path
 
-    puts "Deploying to #{@options["aws_bucket"]}"
+    puts simulate ? "Deploying to #{@options["aws_bucket"]}" : "Simulating deployment to #{@options["aws_bucket"]}"
 
     files = all_files(path).map { |f| f.gsub(/^#{path}\//, "")}
 
