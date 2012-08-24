@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["chris@topher.se"]
   gem.description   = %q{Deploy static websites to Amazon S3}
   gem.summary       = %q{Deploy static websites to Amazon S3}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/lindblom/s3deploy"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
