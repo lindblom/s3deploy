@@ -43,11 +43,11 @@ If you want to test-drive your configuration you can simulate a deploy
 
     $ s3deploy simulate
 
-## Whats in the pipe-line
-1. Putting it on github for others to contribute
+## Whats next?
+
+1. Create method for creating a bucket from the settings in the configuration and settings it up as a website.
 
 ## Contributing
-(you cant do this riktigt now, but it will be on the githubz soon)
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
