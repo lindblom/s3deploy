@@ -45,7 +45,7 @@ If you want to test-drive your configuration you can simulate a deploy
 
 ## Whats next?
 
-1. Create method for creating a bucket from the settings in the configuration and settings it up as a website.
+1. Create method for creating a bucket from the settings in the configuration and settings and setting it up as a website.
 
 ## Contributing
 
