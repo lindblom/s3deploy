@@ -27,12 +27,12 @@ class S3deploy
       :access_key_id     => @options["aws_key"],
       :secret_access_key => @options["aws_secret"]
     )
-  end
-
-  def deploy(simulate = false)
 
     raise "No bucket selected." unless @options["aws_bucket"]
     @bucket = AWS::S3::Bucket.find @options["aws_bucket"]
+  end
+
+  def deploy(simulate = false)
 
     path = File.expand_path(@options["path"])
     raise "#{@options["path"]} is not a path." unless File.directory? path
@@ -54,9 +54,9 @@ class S3deploy
       full_remote_path = (@options["remote_path"] + "/" + file).gsub( /\/\//, "/").gsub( /(^\/)|(\/$)/, "")
 
       if @options["extras"].include?("replace_with_gzip") && has_gzip_version?(file, files)
-        full_path.gsub!(/.gz$/, "")
-        file.gsub!(/.gz$/, "")
-        full_remote_path.gsub!(/.gz$/, "")
+        full_path.gsub!(/.gz$/i, "")
+        file.gsub!(/.gz$/i, "")
+        full_remote_path.gsub!(/.gz$/i, "")
         skip_files << file << file + ".gz"
         if is_gzip_smaller?(full_path)
           file = file + ".gz"
@@ -79,7 +79,7 @@ class S3deploy
   end
 
   def has_gzip_version?(file, files)
-    (file !~ /.+.gz$/ && files.include?("#{file}.gz")) || ( file =~ /.+.gz$/ && files.include?( file.gsub(/.gz$/, "") ) )
+    (file !~ /.+.gz$/i && files.include?("#{file}.gz")) || ( file =~ /.+.gz$/i && files.include?( file.gsub(/.gz$/i, "") ) )
   end
 
   def is_gzip_smaller?(full_path)
@@ -95,6 +95,14 @@ class S3deploy
     end
   end
 
+  def empty(simulate)
+    puts "Emptying #{@options["aws_bucket"]} #{"(Simulating)" if simulate}"
+    @bucket.each do |o|
+      AWS::S3::S3Object.delete(o.key, @options["aws_bucket"]) unless simulate
+      puts "Deleted\t\t#{o.key}"
+    end
+  end
+
   def s3_file_exists?(local, remote)
     md5 = Digest::MD5.hexdigest(open(local).read)
     !@bucket.objects.select{|o| o.key == remote && o.etag == md5 }.empty?
@@ -107,9 +115,19 @@ class S3deploy
       options[:"Cache-Control"] = "public, max-age=31557600" 
     end
 
-    options[:"Content-Encoding"] = "gzip" if local =~ /.+.gz$/
+    options[:content_type] = "text/html; charset=#{@options["html_charset"]}" if @options["html_charset"] && remote =~ /.+\.(html|htm)(\.gz)?$/i
+    options[:"Content-Encoding"] = "gzip" if local =~ /.+.gz$/i
+
+    extra_info = []
+    extra_info << "cache-headers" if options[:"Cache-Control"]
+    extra_info << "gzip" if options[:"Content-Encoding"]
+    extra_info << "charset=#{@options["html_charset"]}" if options[:content_type]
+
     AWS::S3::S3Object.store(remote, open(local), @options["aws_bucket"], options) unless simulate
-    puts "Uploaded\t#{remote}"
+
+    message = "Uploaded\t#{remote}"
+    message += " (#{extra_info.join(", ")})" unless extra_info.empty?
+    puts message
   end
 
   def self.install_config(default = false)

@@ -13,7 +13,14 @@ begin
     S3deploy.install_config(ARGV.include? "--default")
   elsif ARGV.first == "simulate"
     s3deploy = S3deploy.new
-    s3deploy.deploy(true)
+    if ARGV[1] && ARGV[1] == "empty"
+      s3deploy.empty(true)
+    else
+      s3deploy.deploy(true)
+    end
+  elsif ARGV.first == "empty"
+    s3deploy = S3deploy.new
+    s3deploy.empty(false)
   else
     puts <<-eos
   S3deploy usage.
@@ -26,6 +33,10 @@ begin
   
   Folder configurations takes precedence over default configurations.
   I put my aws key, secret and region in default and the rest in folder.
+
+  s3deploy empty (deletes all files in bucket)
+  s3deploy simulate empty (simulates deletion of files)
+
             eos
   end
 rescue Exception => e

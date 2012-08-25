@@ -1,21 +1,23 @@
 ---
-aws_key:      # your amazon key                   *required*
-aws_secret:   # your amazon secret                *required*
-aws_bucket:   # the bucket you want to deploy to  *required*
-#aws_region:  # the region where your bucket is located
-              # region names are: (blank for US Standard)
-              #     us-west-2         US West (Oregon)
-              #     us-west-1         US West (Northern California)
-              #     eu-west-1         EU (Ireland)
-              #     ap-southeast-1    Singapore ( Asia Pacific )
-              #     ap-northeast-1    Tokyo ( Asia Pacific )
-              #     sa-east-1         South America (Sao Paulo)
-#path:        # the relative path to the files you want to deploy, leave it blank for current directory.
-#remote_path: # the path within the bucket to where you want to deploy, leave it blank for bucket root.
-#cache_regex: ^(images|javascripts|stylesheets)\/.+\.(png|jpg|js|css)(\.gz)?$
-              # Adds headers for browser cache for files matching regex.
-#skip_regex:  \.DS_Store$
-              # Skips files that match this regex.
+aws_key:        # your amazon key                   *required*
+aws_secret:     # your amazon secret                *required*
+aws_bucket:     # the bucket you want to deploy to  *required*
+#aws_region:    # the region where your bucket is located
+                # region names are: (blank for US Standard)
+                #     us-west-2         US West (Oregon)
+                #     us-west-1         US West (Northern California)
+                #     eu-west-1         EU (Ireland)
+                #     ap-southeast-1    Singapore ( Asia Pacific )
+                #     ap-northeast-1    Tokyo ( Asia Pacific )
+                #     sa-east-1         South America (Sao Paulo)
+#path:          # the relative path to the files you want to deploy, leave it blank for current directory.
+#remote_path:   # the path within the bucket to where you want to deploy, leave it blank for bucket root.
+#cache_regex:   ^(images|javascripts|stylesheets)\/.+\.(png|jpg|js|css)(\.gz)?$
+                # Adds headers for browser cache for files matching regex.
+#skip_regex:    \.DS_Store$
+                # Skips files that match this regex.
+#html_charset:  utf-8
+                # Sets the charset header on html files
 extras:
   #- delete_old_files    # deletes files that were in the bucket but not in the latest deploy
   #- replace_with_gzip   # replaces files with gz versions if they exist
