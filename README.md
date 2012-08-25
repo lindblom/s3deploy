@@ -26,7 +26,7 @@ Create a folder configuration file like this:
 
     $ s3deploy init
 
-Then update the newly created .s3deploy.yml with your settings.
+Then update the newly created .s3deploy.yml with your settings (comments in the generated file explains how to set it).
 You might want to create a default configuration file where you can store information shared between sites, like Amazon access key, secret and region. You do that with this command:
 
     $ s3deploy init --default
@@ -43,9 +43,19 @@ If you want to test-drive your configuration you can simulate a deploy
 
     $ s3deploy simulate
 
+### Other
+
+If you want to empty a bucket, you can do it with this command:
+
+    $ s3deploy empty
+
+But beware that all files will be removed, you can simulate emptying the bucket with:
+
+    $ s3deploy simulate empty
+
 ## Whats next?
 
-1. Create method for creating a bucket from the settings in the configuration and setting it up as a website.
+1. Create method for creating a bucket from the settings in the configuration and settings it up as a website.
 
 ## Contributing
 
