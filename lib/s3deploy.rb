@@ -1,7 +1,7 @@
 require "s3deploy/version"
 require "AWS/S3"
 require "digest/md5"
-require "yaml" unless defined? YAML
+require "yaml"
 
 class S3deploy
 
@@ -112,7 +112,7 @@ class S3deploy
     options[:access] = :public_read
 
     if @options["cache_regex"] && remote =~ Regexp.new(@options["cache_regex"])
-      options[:"Cache-Control"] = "public, max-age=31557600" 
+      options[:"Cache-Control"] = "public, max-age=31557600"
     end
 
     options[:content_type] = "text/html; charset=#{@options["html_charset"]}" if @options["html_charset"] && remote =~ /.+\.(html|htm)(\.gz)?$/i
@@ -159,9 +159,9 @@ class S3deploy
     end
     files
   end
-    
+
   def import_settings(file)
-    settings = YAML::parse_file(file).to_ruby if File.file? file
+    settings = YAML::load_file(file) if File.file? file
     if settings && settings.class == Hash
       settings.delete_if { |k,v| k != "aws_region" && v.nil? }
     else
@@ -172,7 +172,7 @@ class S3deploy
   def set_aws_region(region)
 
     unless AWS_REGIONS.include? region.downcase
-      raise "#{region} is not a valid region, please select from #{AWS_REGIONS.join(", ")} or leave it blank for US Standard." 
+      raise "#{region} is not a valid region, please select from #{AWS_REGIONS.join(", ")} or leave it blank for US Standard."
     end
 
     AWS::S3::DEFAULT_HOST.replace "s3-#{region}.amazonaws.com"
