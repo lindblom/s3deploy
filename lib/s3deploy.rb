@@ -1,5 +1,5 @@
 require "s3deploy/version"
-require "AWS/S3"
+require "aws/s3"
 require "digest/md5"
 require "yaml"
 
