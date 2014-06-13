@@ -2,6 +2,8 @@
 
 S3deploy is a tool for deploying static websites to Amazon S3.
 
+**Attention!** I am no longer maintaining this project. So if you want it, it can be yours. :)
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -30,7 +32,7 @@ Then update the newly created .s3deploy.yml with your settings (comments in the 
 You might want to create a default configuration file where you can store information shared between sites, like Amazon access key, secret and region. You do that with this command:
 
     $ s3deploy init --default
-  
+
 This configuration file will be created in your home directory in the .s3deploy folder. Update this file with your info, remember that the settings in the .s3deploy.yml in the project folder takes precedance over settings in this file.
 
 ### Deployment
